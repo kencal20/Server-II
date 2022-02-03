@@ -8,30 +8,60 @@ const server = express();
 //Middleware
 server.use(bodyParser.json());
 
+//DataBase
+
+const banksDb = [];
+
+//Bankmodel
+
+class Bankmodel {
+  constructor({ name, location, branch, phone, address, accountNumber }) {
+    this.name = name;
+    this.location = location;
+    this.branch = branch;
+    this.phone = phone;
+    this.address = address;
+    this.accountNumber = accountNumber;
+  }
+  save() {
+    banksDb.push(this);
+    return this;
+  }
+
+  static all() {
+    return banksDb;
+  }
+}
+
 //Controllers
-const listBankController = (req,res)=>{
-
-}
-const creatBankController= (req,res)=>{
-
-}
-const updateBankController=(req,res)=>{
-
-}
-const deleteBankController=(req,res) =>{
-
-}
+const listBankController = (req, res) => {
+  const banks = Bankmodel.all();
+  res.json({ data: banks });
+};
+const creatBankController = (req, res) => {
+  const { name, location, branch, phone, address, accountNumber } = req.body;
+  const bank = new Bankmodel({
+    name,
+    location,
+    branch,
+    phone,
+    address,
+    accountNumber,
+  });
+  bank.save();
+  res.json({ message: "create Successful", data: bank });
+};
+const updateBankController = (req, res) => {};
+const deleteBankController = (req, res) => {};
 
 //Routes
 //view - get method
 server.get("/bank", listBankController);
 //create - post method
-server.post("/bank",creatBankController)
+server.post("/bank", creatBankController);
 //update - put method
-server.update("/bank",updateBankController)
+server.put("/bank", updateBankController);
 //delete - delete method
-server.delete("/bank",deleteBankController)
+server.delete("/bank", deleteBankController);
 
-
-
-server.listen(1000,()=>console.log('server is ready'));
+server.listen(1000, () => console.log("server is ready"));
