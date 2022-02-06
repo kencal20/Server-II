@@ -10,7 +10,7 @@ server.use(bodyParser.json());
 
 //DataBase
 
-const banksDb = [];
+let  banksDb = [];
 
 //Bankmodel
 
@@ -31,9 +31,14 @@ class Bankmodel {
   static all() {
     return banksDb;
   }
-    static update(updateInfo={}) {
-      return banksDb;
-    }
+  static update(updateInfo = {}) {
+    banksDb.map((bank) => {
+      if (bank.name === updateInfo.name) {
+        return { ...bank, ...updateInfo };
+      }
+      return bank;
+    });
+  }
 }
 
 //Controllers
@@ -66,7 +71,7 @@ const updateBankController = (req, res) => {
     accountNumber,
   });
 
-  res.json({message:"updated successful", data:updatedBank})
+  res.json({ message: "updated successful", data: updatedBank });
 };
 const deleteBankController = (req, res) => {};
 
