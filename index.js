@@ -31,6 +31,9 @@ class Bankmodel {
   static all() {
     return banksDb;
   }
+    static update(updateInfo={}) {
+      return banksDb;
+    }
 }
 
 //Controllers
@@ -51,7 +54,20 @@ const creatBankController = (req, res) => {
   bank.save();
   res.json({ message: "create Successful", data: bank });
 };
-const updateBankController = (req, res) => {};
+const updateBankController = (req, res) => {
+  const { name, location, branch, phone, address, accountNumber } = req.body;
+
+  const updatedBank = Bankmodel.update({
+    name,
+    location,
+    branch,
+    phone,
+    address,
+    accountNumber,
+  });
+
+  res.json({message:"updated successful", data:updatedBank})
+};
 const deleteBankController = (req, res) => {};
 
 //Routes
