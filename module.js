@@ -1,4 +1,4 @@
-const banksDb =require('./db')
+let  banksDb =require('./db')
 
 class Bankmodel {
     constructor({ name, location, branch, phone, address, accountNumber }) {
