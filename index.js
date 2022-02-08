@@ -18,14 +18,14 @@ const server = express();
 server.use(bodyParser.json());
 
 //Routes
-//view - get method
+// view - get method
 server.get("/bank", listBankController);
 //create - post method
 server.post("/bank", creatBankController);
-//update - put method
-server.put("/bank", updateBankController);
-//delete - delete method
-server.delete("/bank", deleteBankController);
+// //update - put method
+// server.put("/bank", updateBankController);
+// //delete - delete method
+// server.delete("/bank", deleteBankController);
 
 mongoose
   .connect(
