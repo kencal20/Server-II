@@ -19,7 +19,7 @@ server.use(bodyParser.json());
 
 //Routes
 // view - get method
-server.get("/bank", listBankController);
+server.get("/bank/:id", listBankController);
 //create - post method
 server.post("/bank", creatBankController);
 // //update - put method

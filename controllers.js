@@ -2,9 +2,12 @@ const Bankmodel = require("./module");
 //Controllers
 const listBankController = (req, res) => {
   //list banks
-  Bankmodel.find().then((banks) => {
-    res.json({ data: banks });
-  }) .catch(err => console.log(err));  
+  const { id } = req.params; 
+  Bankmodel.find({_id:id})
+    .then((banks) => {
+      res.json({ data: banks });
+    })
+    .catch((err) => console.log(err));
 };
 const creatBankController = (req, res) => {
   const { name, location, branch, phone, address, accountNumber } = req.body;
