@@ -10,12 +10,12 @@ const listBankController = (req, res) => {
         res.json({ data: banks });
       })
       .catch((err) => console.log(err));
-  } else{
+  } else {
     Bankmodel.find()
-    .then((banks) => {
-      res.json({ data: banks });
-    })
-    .catch((err) => console.log(err));
+      .then((banks) => {
+        res.json({ data: banks });
+      })
+      .catch((err) => console.log(err));
   }
 };
 const creatBankController = (req, res) => {
@@ -36,20 +36,28 @@ const creatBankController = (req, res) => {
     .catch((error) => console.log(error));
 };
 const updateBankController = (req, res) => {
-  const { name, location, branch, phone, address, accountNumber } = req.body;
+  const { id, name, location, branch, phone, address, accountNumber } =
+    req.body;
 
-  const updatedBank = Bankmodel.update({
-    name,
-    location,
-    branch,
-    phone,
-    address,
-    accountNumber,
-  });
-}
+  Bankmodel.findById(id)
+    .then((bank) => {
+      if (bank) {
+        bank.name = name;
+        bank.location = location;
+        bank.branch = branch;
+        bank.phone = phone;
+        bank.address = address;
+        bank.accountNumber = accountNumber;
 
-//   res.json({ message: "updated successful", data: updatedBank });
-// };
+        bank.save();
+        res.json({ message: "updated successful", data: bank });
+      }
+      res.json({ message: "Document cannot be found" });
+    })
+    .catch((err) => console.log(err));
+ 
+};
+
 // const deleteBankController = (req, res) => {
 //   const { name } = req.body;
 //   const deletedBank = Bankmodel.delete({ name });
