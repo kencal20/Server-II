@@ -2,12 +2,21 @@ const Bankmodel = require("./module");
 //Controllers
 const listBankController = (req, res) => {
   //list banks
-  const { id } = req.params; 
-  Bankmodel.find({_id:id})
+  const { id } = req.params;
+
+  if (id) {
+    Bankmodel.find({ _id: id })
+      .then((banks) => {
+        res.json({ data: banks });
+      })
+      .catch((err) => console.log(err));
+  } else{
+    Bankmodel.find()
     .then((banks) => {
       res.json({ data: banks });
     })
     .catch((err) => console.log(err));
+  }
 };
 const creatBankController = (req, res) => {
   const { name, location, branch, phone, address, accountNumber } = req.body;
@@ -26,17 +35,18 @@ const creatBankController = (req, res) => {
     })
     .catch((error) => console.log(error));
 };
-// const updateBankController = (req, res) => {
-//   const { name, location, branch, phone, address, accountNumber } = req.body;
+const updateBankController = (req, res) => {
+  const { name, location, branch, phone, address, accountNumber } = req.body;
 
-//   const updatedBank = Bankmodel.update({
-//     name,
-//     location,
-//     branch,
-//     phone,
-//     address,
-//     accountNumber,
-//   });
+  const updatedBank = Bankmodel.update({
+    name,
+    location,
+    branch,
+    phone,
+    address,
+    accountNumber,
+  });
+}
 
 //   res.json({ message: "updated successful", data: updatedBank });
 // };
@@ -49,6 +59,6 @@ const creatBankController = (req, res) => {
 module.exports = {
   listBankController,
   creatBankController,
-  // updateBankController,
+  updateBankController,
   // deleteBankController,
 };
