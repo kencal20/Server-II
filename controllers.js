@@ -55,18 +55,22 @@ const updateBankController = (req, res) => {
       res.json({ message: "Document cannot be found" });
     })
     .catch((err) => console.log(err));
- 
 };
 
-// const deleteBankController = (req, res) => {
-//   const { name } = req.body;
-//   const deletedBank = Bankmodel.delete({ name });
-//   res.json({ message: "bank deleted", data: deletedBank });
-// };
+const deleteBankController = (req, res) => {
+  const { id } = req.body;
+  const deletedBank = Bankmodel.findByIdAndRemove(id).then((deletedBank) => {
+    if (deletedBank) {
+      res.json({ message: "bank deleted", data: deletedBank });
+      return;
+    }
+    res.json({message: "bank not found"})
+  });
+};
 
 module.exports = {
   listBankController,
   creatBankController,
   updateBankController,
-  // deleteBankController,
+  deleteBankController,
 };

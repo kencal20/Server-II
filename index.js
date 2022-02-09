@@ -24,7 +24,7 @@ server.post("/bank", creatBankController);
 //update - put method
 server.put("/bank", updateBankController);
 // //delete - delete method
-// server.delete("/bank", deleteBankController);
+server.delete("/bank", deleteBankController);
 
 mongoose
   .connect(
