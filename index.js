@@ -8,6 +8,8 @@ const {
   creatBankController,
   updateBankController,
   deleteBankController,
+  createAccountController,
+  listAccountController,
 } = require("./controllers");
 
 //create express
@@ -26,6 +28,9 @@ server.put("/bank", updateBankController);
 // //delete - delete method
 server.delete("/bank", deleteBankController);
 
+server.post('/account', createAccountController)
+
+server.get('/account',listAccountController)
 mongoose
   .connect(
     "mongodb+srv://CT_User:8SSCdQweQAeuBGxH@cluster0.h2f7s.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"

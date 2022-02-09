@@ -1,3 +1,5 @@
+const res = require("express/lib/response");
+const accountsModel = require("./accountsModel");
 const Bankmodel = require("./module");
 //Controllers
 const listBankController = (req, res) => {
@@ -59,18 +61,34 @@ const updateBankController = (req, res) => {
 
 const deleteBankController = (req, res) => {
   const { id } = req.body;
-  const deletedBank = Bankmodel.findByIdAndRemove(id).then((deletedBank) => {
+  Bankmodel.findByIdAndRemove(id).then((deletedBank) => {
     if (deletedBank) {
       res.json({ message: "bank deleted", data: deletedBank });
       return;
     }
-    res.json({message: "bank not found"})
+    res.json({ message: "bank not found" });
   });
 };
 
+const createAccountController = (req, res) => {
+  const { name, number, accountType, bankId } = req.body;
+
+  const account = new accountsModel({ name, number, accountType, bankId });
+
+  account.save().then((result) => {
+    if (result) res.json({ message: "Account Created", data: result });
+    else res.json({ message: "failed to create account" });
+  });
+};
+const listAccountController = (req, res) => {
+  AccountModel.find().then((accounts) => {res.json({data:accounts});
+}).catch(err =>console.log(err));
+};
 module.exports = {
   listBankController,
   creatBankController,
   updateBankController,
   deleteBankController,
+  createAccountController,
+  listAccountController
 };
