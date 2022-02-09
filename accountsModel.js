@@ -15,6 +15,11 @@ const AccountSchema = new Schema({
     type: String,
     required: true,
   },
+  bankId: {
+    type: Schema.Types.ObjectId,
+    ref: "Bank",
+    required: true
+  },
 });
 
-module.exports = mongoose.model("Acoount", AccountSchema);
+module.exports = mongoose.model("Account", AccountSchema);
