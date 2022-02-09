@@ -1,4 +1,4 @@
-const res = require("express/lib/response");
+
 const accountsModel = require("./accountsModel");
 const Bankmodel = require("./module");
 //Controllers
