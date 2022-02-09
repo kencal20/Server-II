@@ -77,14 +77,21 @@ const createAccountController = (req, res) => {
 
   account.save().then((result) => {
     if (result) res.json({ message: "Account Created", data: result });
-    else res.json({message:"failed to create account"})
+    else res.json({ message: "failed to create account" });
   });
 };
-
+const listAccountController = (req, res) => {
+  AccountModel.find()
+    .then((accounts) => {
+      res.json({ data: accounts });
+    })
+    .catch((err) => console.log(err));
+};
 module.exports = {
   listBankController,
   creatBankController,
   updateBankController,
   deleteBankController,
-  createAccountController
+  createAccountController,
+  listAccountController,
 };
