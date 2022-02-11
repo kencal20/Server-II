@@ -3,14 +3,8 @@ const bodyParser = require("body-parser");
 const res = require("express/lib/response");
 const req = require("express/lib/request");
 const mongoose = require("mongoose");
-const {
-  listBankController,
-  creatBankController,
-  updateBankController,
-  deleteBankController,
-  createAccountController,
-  listAccountController
-} = require("./controllers");
+const accountRoutes = require("./Routes/account");
+const bankRoutes = require("./Routes/bank");
 
 //create express
 const server = express();
@@ -19,18 +13,10 @@ const server = express();
 server.use(bodyParser.json());
 
 //Routes
-// view - get method
-server.get("/bank/:id?", listBankController);
-//create - post method
-server.post("/bank", creatBankController);
-//update - put method
-server.put("/bank", updateBankController);
-// //delete - delete method
-server.delete("/bank", deleteBankController);
+server.use(accountRoutes);
+server.use(bankRoutes);
 
-server.post("/account", createAccountController);
-
-server.get("/account", listAccountController);
+//connect to database and start server
 mongoose
   .connect(
     "mongodb+srv://CT_User:8SSCdQweQAeuBGxH@cluster0.h2f7s.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
