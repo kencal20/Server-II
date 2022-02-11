@@ -87,9 +87,10 @@ const createAccountController = (req, res) => {
 const listAccountController = (req, res) => {
   AccountsModel.find()
     .populate("bankId", "name location branch")
-    .then((accounts) =>
-      res.json({ data: accounts }).catch((err) => console.log(err))
-    );
+    .then(accounts => {
+      res.json({ data: accounts });
+    }).catch(err => console.log(err));
+    
 };
 module.exports = {
   listBankController,

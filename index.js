@@ -9,7 +9,7 @@ const {
   updateBankController,
   deleteBankController,
   createAccountController,
-  listAccountController,
+  listAccountController
 } = require("./controllers");
 
 //create express
