@@ -1,6 +1,6 @@
 const Bankmodel = require("../Models/bank");
 const Account = require("../Models/account");
-const { validationResults } = require("express-validator");
+const { validationResult } = require("express-validator");
 const req = require("express/lib/request");
 const res = require("express/lib/response");
 
@@ -25,8 +25,9 @@ const listBankController = (req, res) => {
 
 // Validation checks
 
-const errors = validationResults(req);
+const errors = validationResult(req);
 if (!errors.isEmpty()) {
+  console.log(errors);
   return res.json({message:"failed to create bank"})
   
 }
